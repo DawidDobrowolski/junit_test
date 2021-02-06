@@ -15,8 +15,18 @@ public class Order {
         this.meals.remove(meal);
     }
 
+    public void cleanOrder(){
+        this.meals.clear();
+    }
 
     public List<Meal> getMeals() {
         return meals;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "meals=" + meals +
+                '}';
     }
 }

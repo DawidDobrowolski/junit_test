@@ -1,5 +1,7 @@
 package pl.junit;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -12,6 +14,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OrderTest {
 
+    private Order order;
+
+    @BeforeEach
+    void initializeOrder(){
+        this.order = new Order();
+    }
+
+    @AfterEach
+    void cleanOrder(){
+        this.order.cleanOrder();
+    }
 
     @Test
     void testAssertArraysEquals() {
@@ -25,8 +38,6 @@ class OrderTest {
 
     @Test
     void mealListShouldBeEmptyAfterCreatingOrder() {
-        //given
-        Order order = new Order();
 
         //when
         List<Meal> meals = order.getMeals();
@@ -42,7 +53,6 @@ class OrderTest {
     void addingMealToOrderShouldIncreaseOrderSize() {
         //given
         Meal meal = new Meal(14, "Kebab na cienkim");
-        Order order = new Order();
 
         //when
         order.addMealToOrder(meal);
@@ -58,7 +68,6 @@ class OrderTest {
         //given
         Meal meal1 = new Meal(14, "Kebab na cienkim");
         Meal meal2 = new Meal(16, "Kebab na grubym");
-        Order order = new Order();
 
         //when
         order.addMealToOrder(meal1);
@@ -75,7 +84,6 @@ class OrderTest {
         //given
         Meal meal1 = new Meal(14, "Kebab na cienkim");
         Meal meal2 = new Meal(16, "Kebab na grubym");
-        Order order = new Order();
 
         //when
         order.addMealToOrder(meal1);
