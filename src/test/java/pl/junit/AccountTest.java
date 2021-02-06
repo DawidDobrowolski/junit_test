@@ -1,7 +1,10 @@
 package pl.junit;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
@@ -15,6 +18,13 @@ class AccountTest {
 
         //then
         assertFalse(account.isActive());
+
+        //hamcrest test
+        assertThat(account.isActive(),equalTo(false));
+        assertThat(account.isActive(),is(false));
+
+        //assertJ test
+        Assertions.assertThat(account.isActive()).isFalse();
     }
 
     @Test
@@ -27,6 +37,50 @@ class AccountTest {
 
         //then
         assertTrue(account.isActive());
+
+        //hamcrest test
+        assertThat(account.isActive(),equalTo(true));
+
+        //assertJ test
+        Assertions.assertThat(account.isActive()).isTrue();
+    }
+
+    @Test
+    void newlyCreatedAccountShouldNotHaveDefaultDeliveryAddressSet(){
+        //given
+        Account account = new Account();
+
+        //when
+        Address address = account.getDefaultDeliveryAddress();
+
+        //then
+        assertNull(address);
+
+        //hamcrest test
+        assertThat(address,nullValue());
+
+        //assertJ test
+        Assertions.assertThat(address).isNull();
+    }
+
+    @Test
+    void defaultDeliveryAddressShouldNotBeNullAfterBeingSet(){
+        //given
+        Address address = new Address("Aleje Jerozolimskie","162");
+        Account account =  new Account();
+        account.setDefaultDeliveryAddress(address);
+
+        //when
+        Address defaultDeliveryAddress = account.getDefaultDeliveryAddress();
+
+        //then
+        assertNotNull(defaultDeliveryAddress);
+
+        //hamcrest test
+        assertThat(defaultDeliveryAddress,notNullValue());
+
+        //assertJ test
+        Assertions.assertThat(address).isNotNull();
     }
 
 }
