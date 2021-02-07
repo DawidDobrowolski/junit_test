@@ -14,4 +14,9 @@ public class AccountRepositoryStub implements AccountRepository{
         Account account3 = new Account(address2);
         return List.of(account1,account2,account3);
     }
+
+    @Override
+    public List<String> getByName(String name) {
+        return null;
+    }
 }

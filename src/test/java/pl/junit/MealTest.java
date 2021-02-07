@@ -11,6 +11,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Spy;
+import org.mockito.internal.matchers.Or;
+import org.mockito.junit.jupiter.MockitoExtension;
+import pl.junit.cart.Cart;
+import pl.junit.cart.CartHandler;
 import pl.junit.extensions.IAExceptionIgnoreExtension;
 import pl.junit.order.Order;
 
@@ -22,9 +27,15 @@ import java.util.stream.Stream;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.mock;
 
 @Tag("majorTests")
 class MealTest {
+
+    @Spy
+    Meal mealSpy;
 
     @Test
     void shouldReturnDiscountedPrice() {
@@ -168,6 +179,55 @@ class MealTest {
 
     private static int calculatePrice(int price, int quantity) {
         return price * quantity;
+    }
+
+    @Test
+    void testMealSumPriceWithRealMethod() {
+        //given
+        Meal meal = mock(Meal.class);
+        given(meal.getPrice()).willReturn(15);
+        given(meal.getQuantity()).willReturn(2);
+        given(meal.sumPrice()).willCallRealMethod();
+
+        //when
+        int sum = meal.sumPrice();
+
+        //then
+        assertThat(sum, equalTo(30));
+    }
+
+    @Test
+    void deliveryShouldBeFree(){
+        //given
+        Cart cart = new Cart();
+        cart.addOrderToCart(new Order());
+        cart.addOrderToCart(new Order());
+        cart.addOrderToCart(new Order());
+        cart.addOrderToCart(new Order());
+        CartHandler cartHandler = mock(CartHandler.class);
+        given(cartHandler.isDeliveryFree(cart)).willCallRealMethod();
+
+        //when
+        boolean isDeliveryFree = cartHandler.isDeliveryFree(cart);
+
+        //then
+        assertTrue(isDeliveryFree);
+    }
+
+    @Test
+    @ExtendWith(MockitoExtension.class)
+    void testMealSumPriceWithSpy() {
+        //given
+        given(mealSpy.getPrice()).willReturn(15);
+        given(mealSpy.getQuantity()).willReturn(2);
+
+        //when
+        int sum = mealSpy.sumPrice();
+
+        //then
+        then(mealSpy).should().getPrice();
+        then(mealSpy).should().getQuantity();
+        assertThat(sum, equalTo(30));
     }
 
 }

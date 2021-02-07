@@ -1,16 +1,20 @@
 package pl.junit.account;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+
+@MockitoSettings(strictness = Strictness.STRICT_STUBS)
 public class AccountServiceTest {
 
     @Test
@@ -51,5 +55,19 @@ public class AccountServiceTest {
         Address address2 = new Address("Polna","1");
         Account account3 = new Account(address2);
         return List.of(account1,account2,account3);
+    }
+
+    @Test
+    void getAccountsByName() {
+        //given
+        AccountRepository accountRepository = mock(AccountRepository.class);
+        AccountService accountService = new AccountService(accountRepository);
+        when(accountRepository.getByName("jan")).thenReturn(Collections.singletonList("nowak"));
+
+        //when
+        List<String> accountNames =  accountService.findByName("jan");
+
+        //then
+        assertThat(accountNames, contains("nowak"));
     }
 }
