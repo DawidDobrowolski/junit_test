@@ -2,6 +2,7 @@ package pl.junit;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -121,6 +122,16 @@ class MealTest {
     private static Stream<String> createNameCakes(){
         List<String> cakeNames = List.of("Cheesecake","Fruitcake","Cupcake");
         return cakeNames.stream();
+    }
+
+    @ExtendWith(IAExceptionIgnoreExtension.class)
+    @ParameterizedTest
+    @ValueSource(ints = {8,12,13})
+    void mealPriceShouldBeLowerThen14(int mealPrice){
+        if(mealPrice>12){
+            throw new IllegalArgumentException();
+        }
+        assertThat(mealPrice,lessThan(14));
     }
 
 }
