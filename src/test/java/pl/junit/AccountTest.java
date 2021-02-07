@@ -2,6 +2,7 @@ package pl.junit;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 class AccountTest {
 
-
+    @Tag("majorTests")
     @Test
     void newAccountShouldBeNotActiveAfterCreation(){
         //given
@@ -85,6 +86,7 @@ class AccountTest {
         Assertions.assertThat(address).isNotNull();
     }
 
+    @Tag("majorTests")
     @RepeatedTest(10)
     void newAccountWithNotNullDeliveryAddressShouldBeActive(){
         //given
