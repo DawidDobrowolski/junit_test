@@ -1,4 +1,4 @@
-package pl.junit;
+package pl.junit.order;
 
 import java.io.*;
 

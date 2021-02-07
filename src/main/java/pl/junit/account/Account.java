@@ -1,4 +1,4 @@
-package pl.junit;
+package pl.junit.account;
 
 public class Account {
 

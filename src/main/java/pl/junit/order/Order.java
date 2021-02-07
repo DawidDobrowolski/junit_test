@@ -1,4 +1,6 @@
-package pl.junit;
+package pl.junit.order;
+
+import pl.junit.Meal;
 
 import java.util.ArrayList;
 import java.util.List;

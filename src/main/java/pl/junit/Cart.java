@@ -1,5 +1,7 @@
 package pl.junit;
 
+import pl.junit.order.Order;
+
 import java.util.ArrayList;
 import java.util.List;
 

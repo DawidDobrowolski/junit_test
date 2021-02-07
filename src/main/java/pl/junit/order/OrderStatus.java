@@ -1,4 +1,4 @@
-package pl.junit;
+package pl.junit.order;
 
 public enum OrderStatus {
 

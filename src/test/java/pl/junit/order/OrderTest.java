@@ -1,8 +1,10 @@
-package pl.junit;
+package pl.junit.order;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.junit.Meal;
+import pl.junit.order.Order;
 
 import java.util.Arrays;
 import java.util.List;

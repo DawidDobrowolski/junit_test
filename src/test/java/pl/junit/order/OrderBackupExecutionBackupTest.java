@@ -1,6 +1,8 @@
-package pl.junit;
+package pl.junit.order;
 
 import org.junit.jupiter.api.Test;
+import pl.junit.order.Order;
+import pl.junit.order.OrderBackup;
 
 import java.io.IOException;
 
