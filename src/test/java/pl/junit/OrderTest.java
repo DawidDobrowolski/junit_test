@@ -109,4 +109,39 @@ class OrderTest {
         assertThat(meals1, equalTo(meals2));
     }
 
+    @Test
+    void exceedMaximumOrderValueShouldThrowException(){
+        //given
+        Meal meal1 = new Meal(Integer.MAX_VALUE, 1,"Kebab na cienkim");
+        Meal meal2 = new Meal(Integer.MAX_VALUE, 1,"Kebab na grubym");
+
+        //when
+        order.addMealToOrder(meal1);
+        order.addMealToOrder(meal2);
+
+        //then
+        assertThrows(IllegalStateException.class,() -> order.getTotalOrderValue());
+    }
+
+    @Test
+    void emptyOrderTotalValueShouldReturn0(){
+        //then
+        assertThat(order.getTotalOrderValue(),equalTo(0));
+    }
+
+    void cancellingOrderShouldRemoveAllItemsFromOrderList(){
+        //given
+        Meal meal1 = new Meal(14, "Kebab na cienkim");
+        Meal meal2 = new Meal(16, "Kebab na grubym");
+
+        //when
+        order.addMealToOrder(meal1);
+        order.addMealToOrder(meal2);
+        order.cleanOrder();
+
+        //then
+        assertThat(order.getMeals(),hasSize(0));
+
+    }
+
 }

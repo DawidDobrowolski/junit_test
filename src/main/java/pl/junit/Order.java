@@ -15,6 +15,14 @@ public class Order {
         this.meals.remove(meal);
     }
 
+    public int getTotalOrderValue(){
+        int sum = meals.stream().mapToInt(m->m.getPrice()*m.getQuantity()).sum();
+        if(sum < 0){
+            throw new IllegalStateException("Price limit exceeded");
+        }
+        return sum;
+    }
+
     public void cleanOrder(){
         this.meals.clear();
     }
