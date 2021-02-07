@@ -25,13 +25,13 @@ class CoordinatesTest {
 
     @ParameterizedTest
     @CsvSource({"1,-2", "23,101", "100,-1", "-1,100", "-50,150"})
-    void checkCoordinatesOutOfRange0To100(int x, int y) {
+    void checkExceptionCoordinatesOutOfRange0To100(int x, int y) {
         //then
         assertThrows(IllegalArgumentException.class, () -> new Coordinates(x, y));
     }
 
     @Test
-    void copyShouldReturnObject(){
+    void copyShouldReturnNewObject(){
         //given
         Coordinates coordinates = new Coordinates(10,10);
 
@@ -45,7 +45,7 @@ class CoordinatesTest {
 
     @ParameterizedTest
     @CsvSource({"-10,2", "80,90", "55,-5", "0,0", "50,15"})
-    void copyCoordinatesAndMoveWithXYValuesAndNotExceedRange(int x, int y) {
+    void copyCoordinatesShouldMoveWithXYValues(int x, int y) {
         //given
         Coordinates coordinates = new Coordinates(10,10);
 
@@ -62,7 +62,7 @@ class CoordinatesTest {
 
     @ParameterizedTest
     @CsvSource({"-11,2", "80,91", "-55,-5", "-1,91", "91,-11"})
-    void copyCoordinatesAndMoveWithXYValuesAndExceedRange(int x, int y) {
+    void copyCoordinatesWithXYOutOfRangeShouldThrowException(int x, int y) {
         //given
         Coordinates coordinates = new Coordinates(10,10);
 
