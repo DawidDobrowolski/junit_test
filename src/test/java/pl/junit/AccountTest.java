@@ -1,11 +1,13 @@
 package pl.junit;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 class AccountTest {
 
@@ -81,6 +83,21 @@ class AccountTest {
 
         //assertJ test
         Assertions.assertThat(address).isNotNull();
+    }
+
+    @RepeatedTest(10)
+    void newAccountWithNotNullDeliveryAddressShouldBeActive(){
+        //given
+        Address address = new Address("Długa","48");
+
+        //when
+        Account account = new Account(address);
+
+        //then
+        //sprawdzane tylko jeśli spełniony warunek
+        assumingThat(address != null,
+                () -> assertTrue(account.isActive())
+        );
     }
 
 }
