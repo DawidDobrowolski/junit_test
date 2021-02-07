@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Order {
 
+    private OrderStatus orderStatus;
     private List<Meal> meals = new ArrayList<>();
 
     public void addMealToOrder(Meal meal){
@@ -23,6 +24,14 @@ public class Order {
             throw new IllegalStateException("Price limit exceeded");
         }
         return sum;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void changeOrderStatus(OrderStatus orderStatus){
+        this.orderStatus = orderStatus;
     }
 
     public void cleanOrder(){

@@ -1,7 +1,8 @@
-package pl.junit;
+package pl.junit.cart;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pl.junit.cart.Cart;
 import pl.junit.order.Order;
 
 import java.time.Duration;

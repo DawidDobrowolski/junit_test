@@ -1,5 +1,6 @@
-package pl.junit;
+package pl.junit.cart;
 
+import pl.junit.Meal;
 import pl.junit.order.Order;
 
 import java.util.ArrayList;
